@@ -35,3 +35,9 @@ Currently,  the status quo method for setting up secure ssh connections is by im
 
 ## Network Diagram
 
+### References
+* Step CA Documentation: https://smallstep.com/docs/step-ca
+* Step CA Tutorials : https://smallstep.com/docs/tutorials
+* Small Step Blog for SSH DIY : https://smallstep.com/blog/diy-single-sign-on-for-ssh/ 
+* Single Sign on for SSH : https://www.youtube.com/watch?v=ZhxLRlcNUM4
+* KeyCloak home page : https://www.keycloak.org/
