@@ -34,6 +34,7 @@ Currently,  the status quo method for setting up secure ssh connections is by im
 | Server          | Ubunutu          | 10.9.2.252 | Student/tartans |
 
 ## Network Diagram
+Access to a machine has been provided to an employee by sharing the key with them which has been stored on their system. The employee was fired  
 
 ### References
 * Step CA Documentation: https://smallstep.com/docs/step-ca
