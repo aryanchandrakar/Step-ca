@@ -30,8 +30,8 @@ Currently,  the status quo method for setting up secure ssh connections is by im
 | --------------- |:----------------:| :---------:| ---------------:|
 | Step-CA Server  | Ubunutu          | 10.5.5.143 | Student/tartans |
 | KeyCloak Server | Ubunutu          | 10.9.8.31  | Student/tartans |
-| Client          | Ubunutu          |  | |
-| Server          | Ubunutu          |  | |
+| Client          | Ubunutu          | 10.5.5.119 | Student/tartans |
+| Server          | Ubunutu          | 10.9.2.252 | Student/tartans |
 
 ## Network Diagram
 
