@@ -54,7 +54,10 @@ _Remember to add the `--ssh` argument, else the setup occurs on http._
 ### Start the server
 * You may start the server now using the command `step-ca ca.json`
 * Enter the requirred detials.
+
 _*Check the output, the server must have started running on the provided IP:port*_
+
+
 
 ### References
 * Step CA Documentation: https://smallstep.com/docs/step-ca
