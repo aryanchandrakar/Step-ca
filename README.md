@@ -24,6 +24,7 @@ Through this lab, the students will be able to understand how we can configure s
 Currently,  the status quo method for setting up secure ssh connections is by importing your public key to the server or downloading a private key of the server for initial access. However, even though communication is secure in this method, the management of users is complicated especially when you have multiple users. For example, one needs to make sure that if someone leaves your company, their access is revoked. Hence, we need a better alternative to solve this access management problem.
 
 ## Scenario
+Access to the empolyee was provided by the admin by sharing the key via a file. The employee was recently fired, he access the server messes up with it. You have taken it upon yourself to secure the same, using step-ca, Let's go with it!
 
 ## Machines
 | Name            | Operating System | IP Address | Credentials     |
@@ -34,7 +35,26 @@ Currently,  the status quo method for setting up secure ssh connections is by im
 | Server          | Ubunutu          | 10.9.2.252 | Student/tartans |
 
 ## Network Diagram
-Access to a machine has been provided to an employee by sharing the key with them which has been stored on their system. The employee was fired  
+
+## Setting up Step-ca server
+### Initialize certificate authority
+The certificate authority is what you’ll be using to issue and sign certificates, knowing that you can trust anything using a certificate signed by the root certificate.
+
+Run the command `step ca init --ssh` in a terminal to configure your CA. You'll be asked to enter few information.
+_Remember to add the `--ssh` argument, else the setup occurs on http._
+
+* Enter any name based on your preference
+* Provide the system's IP address, you should know how to find that.
+* Enter the IP address and port in the format [IP:port]
+* Provide the CA's first provisioner
+* Enter a password, keep a note of the same for future purpose.
+
+#### *Run Grading Script* 
+
+### Start the server
+* You may start the server now using the command `step-ca ca.json`
+* Enter the requirred detials.
+_*Check the output, the server must have started running on the provided IP:port*_
 
 ### References
 * Step CA Documentation: https://smallstep.com/docs/step-ca
