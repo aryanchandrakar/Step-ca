@@ -26,10 +26,10 @@ Currently,  the status quo method for setting up secure ssh connections is by im
 ## Scenario
 
 ## Machines
-| Name            | Operating System | IP Address | Credentials |
-| --------------- |:----------------:| :----------:| -----------:|
-| Step-CA Server  | Ubunutu          |  | |
-| KeyCloak Server | Ubunutu          |  | |
+| Name            | Operating System | IP Address | Credentials     |
+| --------------- |:----------------:| :---------:| ---------------:|
+| Step-CA Server  | Ubunutu          | 10.5.5.143 | Student/tartans |
+| KeyCloak Server | Ubunutu          | 10.9.8.31  | Student/tartans |
 | Client          | Ubunutu          |  | |
 | Server          | Ubunutu          |  | |
 
