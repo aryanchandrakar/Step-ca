@@ -49,13 +49,37 @@ _Remember to add the `--ssh` argument, else the setup occurs on http._
 * Provide the CA's first provisioner
 * Enter a password, keep a note of the same for future purpose.
 
-#### *Run Grading Script* 
+### Certificate
+Generate certificate using the command `step ca certificate [IP] tls.crt tls.key --kty RSA`
+You can inspect the validity of the certificate using the inspect command ` step certificate inspect --short tls.crt`, This provides the necessary details about the certificate like expiration date-time, creation date-time and key used to sign the certificate.
+Install the root certificate using the command `step cetificate install root.crt` 
 
 ### Start the server
 * You may start the server now using the command `step-ca ca.json`
-* Enter the requirred detials.
+* Enter the asked detials.
+_*Check the output, the server must have started running on the provided IP:port, this can now be accessed via our other system*_
 
-_*Check the output, the server must have started running on the provided IP:port*_
+### Transfering certificate and key
+Python provides http server in python3(which has been already installed for your ease), it’s a useful tool for transferring files over the internet.
+
+Start a python server using the command `python -m http.server [port of choice]`. This server ip:port can be accessed by anyone on the same network and be used to download any file from the directory where the command was executed.
+
+#### Download TLS files
+On the keycloak machine access the python server initiated on the stepca server using the URL http://[IP]:[port]
+And download the tls.crt and tls.key, copy them in the cert's directory in desktop.
+
+The desktop also contains a yaml file, open it to get credentials and keep a note of the same, might be useful.
+
+### Starting Keycloak
+* Start the docker first using the command `sudo docker compose up`.
+* Browse to https://localhost:8443, accept the risk.
+* You would reach the keycloak main page, login into administrative panel using the credential forund in yaml file.
+* Click on the Master in the left panel, in the drop down lst create realm and give it a name.
+* Now we create a client, go to the client tab in the left panel and import a JSON file which can be found on the desktop.
+* Go to the credential tab and copy the secret, which will have been auto-generated.
+* Now we create a user, on the left panel, under user's tab, create user, provide it an ID, email id and check the email verified option (keep it on).
+* Under the credential tab set a password and remember the same for future.
+*In case any error shows up on the keycloak panel, clear the browser cache.*
 
 
 
