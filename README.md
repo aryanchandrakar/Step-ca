@@ -45,50 +45,55 @@ _Remember to add the `--ssh` argument, else the setup occurs on http._
 
 * Enter any name based on your preference
 * Provide the system's IP address, you should know how to find that.
-* Enter the IP address and port in the format [IP:port]
+* Enter the IP address and port to be 5555 in the format [IP:port] 
 * Provide the CA's first provisioner
 * Enter a password, keep a note of the same for future purpose.
 
 ### Start the server
-* You may start the server now using the command `step-ca ca.json`
+* You need to go to the directory /.step/config and now you may start the server now using the command `step-ca ca.json`
 * Enter the asked detials.
+* Keep this instance running.
 _*Check the output, the server must have started running on the provided IP:port, this can now be accessed via our other system*_
 
 ### Certificate
-Generate certificate using the command `step ca certificate keycloak.internal tls.crt tls.key --kty RSA`
+On a new terminal generate certificate using the command `step ca certificate keycloak.internal tls.crt tls.key --kty RSA` and choose the first provisioner.
 You can inspect the validity of the certificate using the inspect command ` step certificate inspect --short tls.crt`, This provides the necessary details about the certificate like expiration date-time, creation date-time and key used to sign the certificate.
-Install the root certificate using the command `step cetificate install root.crt` 
+Now, go to the /.step/certs directory and install the root certificate using the command `step cetificate install root_ca.crt` 
 
 ### Transfering certificate and key
 Python provides http server in python3(which has been already installed for your ease), it’s a useful tool for transferring files over the internet.
 
-Start a python server using the command `python -m http.server [port of choice]`. This server ip:port can be accessed by anyone on the same network and be used to download any file from the directory where the command was executed.
+Start a python server on a new terminal using the command `python3 -m http.server [port of choice]`. This server ip:port can be accessed by anyone on the same network and be used to download any file from the directory where the command was executed.
 
 #### Download TLS files
-On the keycloak machine access the python server initiated on the stepca server using the URL http://[IP]:[port]
+On the keycloak machine access the python server initiated on the stepca server using the URL http://[IP]:[port] where the IP is that of the step-ca server's IP address and port is 5555.
 And download the tls.crt and tls.key, copy them in the cert's directory in desktop.
 
 The desktop also contains a yaml file, open it to get credentials and keep a note of the same, might be useful.
 
 ### Starting Keycloak
-* Start the docker first using the command `sudo docker compose up`.
+* In the Desktop directory Start the docker first using the command `sudo docker compose up`.
 * Browse to https://localhost:8443, accept the risk.
 * You would reach the keycloak main page, login into administrative panel using the credential forund in yaml file.
-* Click on the Master in the left panel, in the drop down lst create realm and give it a name.
-* Now we create a client, go to the client tab in the left panel and import a JSON file which can be found on the desktop.
+* Click on the Master in the left panel, in the drop down lst create realm and give it a name as step-ca.
+* Now we create a client using import client option found in the client's tab left panel and import a JSON file which can be found on the desktop.
 * Go to the credential tab and copy the secret, which will have been auto-generated.
 * Now we create a user, on the left panel, under user's tab, create user, provide it an ID, email id and check the email verified option (keep it on).
-* Under the credential tab set a password and remember the same for future.
+* Under the credential tab set a password and remember the same for future. Also disable the temporary option there.
 *In case any error shows up on the keycloak panel, clear the browser cache.*
 
-### Generating SSH certificate
+### Adding Provisioner
 After successfully creating a user on the keycloak, we need to now log into the stepca system. Here, we would be updating the ca.json file with the client secret that we copied earlier from the Credentials tab at line 53 of the file. 
 
 Now, we need to configure step-ca to accept the your client. 
 
 Run the command `step ca provisioner add keycloak --type=OIDC --client-id step-ca --client-secret [client secret] --configuration-endpoint https://keycloak.internal:8443/realms/step-ca/.well-known/openid-configuration --listen-address :10000`
 
-Now start (or restart) your step-ca instance and run the following command:
+_Make sure that the client secret is the same as the one on the keycloak._
+
+Now stop the step-ca instance using ctrl + C and then restart your step-ca instance using `step-ca ca.json`.
+
+On another terminal run the following command:
 
 `step ssh login user@example.com`
 
@@ -97,25 +102,25 @@ _Remember to use the same email address that was used for your keycloak user._
 If all the steps were followed as mentioned then the server will provide a link that will allow you to access the interface. Along with it an SSH certificate will be issued and added to your SSH agent, with your username and email address as principals.
 
 ### Server keys and ssh service
-On server machine open up a terminal and create ecdsa key pairs in the .step/certs directory using the command `step ssh certificate --host testhost ssh_host_ecdsa_key`
+On server machine open up a terminal and now in the /.step/certs directory run the command `step ca bootstrap --ca-url [URL_provided_during_step-ca_initialization] --fingerprint [fingerprint_found_during_start_of_step-ca_server]`. 
+
+In the *.step/certs* directory, lets create a host using the command `step ssh certificate --host testhost ssh_host_ecdsa_key`
 Choose the first option, and enter the required details.
 
 Provide the password to decrypt the provisioner key [tartans]
 
-Key pair should have been generated
-
-Once key pair has been generated strat the ssh service using `sudo service ssh restart`
+Once key pair and certificates have been generated restart the ssh service using `sudo service ssh restart`
 You can check the status of the service using `sudo service ssh status`
 
-### Single SSH Sign-On from clent to server
-Now we move to the client system, where we have to download the root.crt using the python port running on step-ca system. To do the same run the following command `step certificate install root.crt` 
+### Single SSH Sign-On from client to server
 
-Let's configure the step-ca ssh using the command `step ssh config`.
+Run the following command in the directory /.step/certs to install root certificate `step certificate install root_ca.crt` 
 
-Move to the server system, create a new user on the host. Your username must match the user portion of the email address you’ll use to sign in to keycloak. So the command will be `sudo adduser --quiet --disabled-password --gecos '' [user]`. The host side of our setup is done!
+Now lets now run the command `step ca bootstrap --ca-url [URL_provided_during_step-ca_initialization] --fingerprint [fingerprint_found_during_start_of_step-ca_server]`. 
 
+If asked to overwrite defualts.json and root_ca.crt, press [y] and continue. 
 
-Login to the client system, we need to ssh into the server and to do so first move to the /.step/ssh directory using `cd ~/.step/ssh/`. We need to find the hostname to ssh into the sever by doing `step ssh hosts`. It will list all the hostnames. Now ssh into the server using the hostname found in the previous command by running `ssh [hostname]`. Upon successful execution of the command, we can now get a ssh connection into the server securely. 
+Now using the created host lets login into the server system using secure ssh, and to do so first move to the /.step/certs directory using `cd ~/.step/certs/`. We need to list all the hostnames on the server by doing `step ssh hosts`. It will list all the hostnames. Now ssh into the server using the hostname found in the previous command (that we created earlier) by running `ssh [hostname]` and enter the password. Upon successful execution of the command, we can now get a ssh connection into the server securely. 
 
 
 ### References
