@@ -50,7 +50,7 @@ _Remember to add the `--ssh` argument, else the setup occurs on http._
 * Enter a password, keep a note of the same for future purpose.
 
 ### Certificate
-Generate certificate using the command `step ca certificate [IP] tls.crt tls.key --kty RSA`
+Generate certificate using the command `step ca certificate keycloak.internal tls.crt tls.key --kty RSA`
 You can inspect the validity of the certificate using the inspect command ` step certificate inspect --short tls.crt`, This provides the necessary details about the certificate like expiration date-time, creation date-time and key used to sign the certificate.
 Install the root certificate using the command `step cetificate install root.crt` 
 
