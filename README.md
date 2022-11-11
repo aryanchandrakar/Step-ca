@@ -98,7 +98,10 @@ If all the steps were followed as mentioned then the server will provide a link 
 
 ### Server keys and ssh service
 On server machine open up a terminal and create ecdsa key pairs in the .step/certs directory using the command `step ssh certificate --host testhost ssh_host_ecdsa_key`
+Choose the first option, and enter the required details.
+
 Provide the password to decrypt the provisioner key [tartans]
+
 Key pair should have been generated
 
 Once key pair has been generated strat the ssh service using `sudo service ssh restart`
