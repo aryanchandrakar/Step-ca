@@ -49,15 +49,15 @@ _Remember to add the `--ssh` argument, else the setup occurs on http._
 * Provide the CA's first provisioner
 * Enter a password, keep a note of the same for future purpose.
 
-### Certificate
-Generate certificate using the command `step ca certificate keycloak.internal tls.crt tls.key --kty RSA`
-You can inspect the validity of the certificate using the inspect command ` step certificate inspect --short tls.crt`, This provides the necessary details about the certificate like expiration date-time, creation date-time and key used to sign the certificate.
-Install the root certificate using the command `step cetificate install root.crt` 
-
 ### Start the server
 * You may start the server now using the command `step-ca ca.json`
 * Enter the asked detials.
 _*Check the output, the server must have started running on the provided IP:port, this can now be accessed via our other system*_
+
+### Certificate
+Generate certificate using the command `step ca certificate keycloak.internal tls.crt tls.key --kty RSA`
+You can inspect the validity of the certificate using the inspect command ` step certificate inspect --short tls.crt`, This provides the necessary details about the certificate like expiration date-time, creation date-time and key used to sign the certificate.
+Install the root certificate using the command `step cetificate install root.crt` 
 
 ### Transfering certificate and key
 Python provides http server in python3(which has been already installed for your ease), it’s a useful tool for transferring files over the internet.
