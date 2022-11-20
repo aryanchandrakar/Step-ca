@@ -72,26 +72,26 @@ And download the tls.crt and tls.key, copy them in the cert's directory in deskt
 The desktop also contains a yaml file, open it to get credentials and keep a note of the same, might be useful.
 
 ### Starting Keycloak
-* In the Desktop directory Start the docker first using the command `sudo docker compose up`.
+* Go to the keycloak server, in the Desktop directory, start the docker first using the command `sudo docker compose up`.
 * Browse to https://localhost:8443, accept the risk.
-* You would reach the keycloak main page, login into administrative panel using the credential forund in yaml file.
-* Click on the Master in the left panel, in the drop down lst create realm and give it a name as step-ca.
-* Now we create a client using import client option found in the client's tab left panel and import a JSON file which can be found on the desktop.
+* You would reach the keycloak main page, login into administrative panel using the credential found in yaml file.
+* From the left panel click on Master, from the drop down listed click on create realm. Here you dont need to upload a resource file, all you need to do is give a realm name as step-ca and keep the enabled button on. 
+* Now we create a client using import client option found in the client's tab left panel and import a JSON file which can be found on the desktop and give a client ID to be step-ca and click on save at the bottom.
 * Go to the credential tab and copy the secret, which will have been auto-generated.
-* Now we create a user, on the left panel, under user's tab, create user, provide it an ID, email id and check the email verified option (keep it on).
+* Now we create a user, on the left panel, under user's tab, create user, provide it an ID, email id and check the email verified option (keep it on). The ID and email id can be anything of your choice. 
 * Under the credential tab set a password and remember the same for future. Also disable the temporary option there.
-*In case any error shows up on the keycloak panel, clear the browser cache.*
+*In case any error shows up on the keycloak panel, clear the browser cache. To do so go to settings by clicking on the application menu on the right top corner of the webpage. Settings -> privacy & security -> clear the cookies and site data.*
 
 ### Adding Provisioner
-After successfully creating a user on the keycloak, we need to now log into the stepca system. Here, we would be updating the ca.json file with the client secret that we copied earlier from the Credentials tab at line 53 of the file. 
+After successfully creating the user on the keycloak, we need to now log into the stepca system. Here, using the client secret that we copied earlier from the credentials tab.
 
-Now, we need to configure step-ca to accept the your client. 
+First, we need to configure step-ca to accept your client. 
 
 Run the command `step ca provisioner add keycloak --type=OIDC --client-id step-ca --client-secret [client secret] --configuration-endpoint https://keycloak.internal:8443/realms/step-ca/.well-known/openid-configuration --listen-address :10000`
 
 _Make sure that the client secret is the same as the one on the keycloak._
 
-Now stop the step-ca instance using ctrl + C and then restart your step-ca instance using `step-ca ca.json`.
+On the step-ca server, stop the step-ca instance using ctrl + C and then restart your step-ca instance using `step-ca ca.json`.
 
 On another terminal run the following command:
 
@@ -102,19 +102,19 @@ _Remember to use the same email address that was used for your keycloak user._
 If all the steps were followed as mentioned then the server will provide a link that will allow you to access the interface. Along with it an SSH certificate will be issued and added to your SSH agent, with your username and email address as principals.
 
 ### Server keys and ssh service
-On server machine open up a terminal and now in the /.step/certs directory run the command `step ca bootstrap --ca-url [URL_provided_during_step-ca_initialization] --fingerprint [fingerprint_found_during_start_of_step-ca_server]`. 
+On server machine open up a terminal and now in the ~/.step/certs directory run the command `step ca bootstrap --ca-url [URL_provided_during_step-ca_initialization] --fingerprint [fingerprint_found_during_start_of_step-ca_server]`. 
 
-In the *.step/certs* directory, lets create a host using the command `step ssh certificate --host testhost ssh_host_ecdsa_key`
+In the *~/.step/certs* directory, lets create a host using the command `step ssh certificate --host testhost ssh_host_ecdsa_key`
 Choose the first option, and enter the required details.
 
-Provide the password to decrypt the provisioner key [tartans]
+Provide the password to decrypt the provisioner key (type in the password that you created earlier)
 
 Once key pair and certificates have been generated restart the ssh service using `sudo service ssh restart`
 You can check the status of the service using `sudo service ssh status`
 
 ### Single SSH Sign-On from client to server
 
-Run the following command in the directory /.step/certs to install root certificate `step certificate install root_ca.crt` 
+Run the following command in the directory ~/.step/certs to install root certificate `step certificate install root_ca.crt` 
 
 Now lets now run the command `step ca bootstrap --ca-url [URL_provided_during_step-ca_initialization] --fingerprint [fingerprint_found_during_start_of_step-ca_server]`. 
 
