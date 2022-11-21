@@ -140,19 +140,21 @@ A python server will be started at port 12345 and can be now accessed by any sys
 * Open a browser and enter the following URL: http://[IP of the step-ca server]:12345 to access the http server running in our step-ca server.
 * Download tls.crt and tls.key.
 * Copy both the files to certs directory in the desktop.
-* The desktop also contains a yaml file, open it to get credentials and keep a note of the same, might be useful.
+
+*The desktop also contains a yaml file, open it to get credentials and keep a note of the same, might be useful.*
 
   
 ### Starting Keycloak
-  
-* Go to the keycloak server, in the Desktop directory, start the docker first using the command `sudo docker compose up`.
+
+Now we start our KeyCloak to manage all the users, clients, their authorization and authentication.
+* Open the **keycloak server machine**, in the *Desktop* directory, start the docker first using the command `sudo docker compose up`.
 * Browse to https://localhost:8443, accept the risk.
 * You would reach the keycloak main page, login into administrative panel using the credential found in yaml file.
-* From the left panel click on Master, from the drop down list click on create realm. Here you dont need to upload a resource file, all you need to do is give a realm name as step-ca and keep the enabled button on. 
-* Now we create a client using import client option found in the client's tab left panel and import a JSON file which can be found on the desktop and give a client ID to be step-ca and click on save at the bottom.
-* Go to the credential tab and copy the secret, which will have been auto-generated.
-* Now we create a user, on the left panel, under user's tab, create user, provide it an ID, email id and check the email verified option (keep it on). The ID and email id can be anything of your choice. 
-* Under the credential tab set a password and remember the same for future. Also disable the temporary option there.
+* From the left panel click on Master, from the drop down list click on create realm. Here all you need to do is give a realm name as step-ca and keep the enabled button on. 
+* Now we create a new client, click on the client's tab in left panel, here you can simple import the details for the client rather than entering all the details, the JSON file which can be found on the desktop and enter a client ID, let it be *step-ca* and click on save at the bottom.
+* Under the client section, go to the credential tab and copy the secret, which will have been auto-generated.
+* Now we create a user, on the left panel, click on user's tab and simply click on create user to create a new user, provide it an ID, email id and check the email verified option (keep it on). The ID and email id can be anything of your choice, remember your choice for future purpose. 
+* Under the credential tab set a password and remember the same for future. Also disable the *temporary* option there.
   
 *In case any error shows up on the keycloak panel, clear the browser cache. To do so go to settings by clicking on the application menu on the right top corner of the webpage. Settings -> privacy & security -> clear the cookies and site data.*
 
@@ -166,16 +168,19 @@ Now open a new terminal on Step-ca server and run the grading script.
  
 
 ### Adding Provisioner
-After successfully creating the user on the keycloak, we need to now log into the stepca system. Here, using the client secret that we copied earlier from the credentials tab.
+After successfully creating the user on the keycloak, we need to now log into the **Step-ca system machine**. 
 
-First, we need to configure step-ca to accept your client. 
+Here, we will be using the client secret that we copied earlier from the credentials tab.
 
-Add client's ID, Client's secret and realm name which you specified when configuring keycloak to the command and run the command 
+First, we need to configure Step-ca to accept our client by running the command in a new terminal.
+
+*Remember to add client's ID, Client's secret and realm name which was specified when configuring keycloak to the command's field*
+
 `step ca provisioner add keycloak --type=OIDC --client-id [client_id] --client-secret [client secret] --configuration-endpoint https://keycloak.internal:8443/realms/[realm_name]/.well-known/openid-configuration --listen-address :10000`
 
-_Make sure that the client secret is the same as the one on the keycloak._
+_Make sure that the client secret is the same as the one on the keycloak. This might come out to be different if you are using copy paste feature of Topomojo._
 
-Now, on the step-ca server, we stop the step-ca instance using ctrl + C and then restart your step-ca instance using `step-ca ca.json`.
+Now, on the step-ca server machine, we stop the step-ca instance using ctrl + C and then restart your step-ca instance using `step-ca ca.json`.
 
 On another terminal run the following command:
 
