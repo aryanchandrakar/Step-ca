@@ -36,7 +36,7 @@ Access to the empolyee was provided by the admin by sharing the key via a file. 
 
 ### Network Diagram
 
-![image](https://user-images.githubusercontent.com/49098125/202934732-dbd0e47b-63d2-4dd3-a1b7-b72f6ee8f41c.png)
+![image](https://user-images.githubusercontent.com/49098125/202936858-020c34ec-4f46-4e52-8fd3-c173d2f594d3.png)
 
 ## Procedure
 ### Setting up Step-ca server
@@ -114,7 +114,7 @@ _Remember to use the same email address that was used for your keycloak user._
 If all the steps were followed as mentioned then, the server will provide a link that will allow you to access the interface. Along with it an SSH certificate will be issued and added to your SSH agent, with your username and email address as one of the principals.
 
 ### Server keys and ssh service
-On server machine open up a terminal and now in the ~/.step/certs directory run the command `step ca bootstrap --ca-url [URL_provided_during_step-ca_initialization] --fingerprint [fingerprint_found_during_start_of_step-ca_server]`. 
+On resource server machine open up a terminal and now in the ~/.step/certs directory run the command `step ca bootstrap --ca-url [URL_provided_during_step-ca_initialization] --fingerprint [fingerprint_found_during_start_of_step-ca_server]`. 
 
 _The fingerprint can be found on the Step-ca server, on the terminal where we ran the step-ca instance._
 
@@ -127,7 +127,7 @@ Once key pair and certificates have been generated restart the ssh service using
 You can check the status of the service using `sudo service ssh status` would look something like.
 ![server restart](https://user-images.githubusercontent.com/49098125/202933585-5886bf6e-5f33-4c88-9010-a7a38e507080.png)
 
-Now we add our earlier created user(who we created on keycloak) to the server as sudoers, this helps in connecting to server via ssh connection without need of the super user access.
+Now we add our earlier created user(who we created on keycloak) to the resource server as sudoers, this helps in connecting to resource server via ssh connection without need of the super user access.
 
 Run the command `sudo adduser --quiet --disabled-password --gecos ' ' [username]` to add our user.
 
@@ -146,7 +146,7 @@ Install the CA cert for validating user certificates (from /etc/step-ca/certs/ss
 
 ![client sys validiating user certificate](https://user-images.githubusercontent.com/49098125/202934441-adfd4e84-c039-4fb1-af9e-0c8010cdb4e8.png)
 
-Now using the created host lets login into the server system using secure ssh, and to do so first move to the /.step/certs directory using `cd ~/.step/certs/`. We'll first list all the hostnames on the server by doing `step ssh hosts`. Now ssh into the server using the hostname found in the previous command (that we created earlier) by running `ssh [hostname]`. Upon successful execution of the command, we can now get a ssh connection into the server securely without enterying any password because we already have the certificate for the same authenticating us as valid user.
+Now using the created host lets login into the resource server system using secure ssh, and to do so first move to the /.step/certs directory using `cd ~/.step/certs/`. We'll first list all the hostnames on the server by doing `step ssh hosts`. Now ssh into the server using the hostname found in the previous command (that we created earlier) by running `ssh [hostname]`. Upon successful execution of the command, we can now get a ssh connection into the server securely without enterying any password because we already have the certificate for the same authenticating us as valid user.
 
 ![client ssh into host wihtout password, we have certificate no key needed](https://user-images.githubusercontent.com/49098125/202934661-b01b05b4-ac30-47f3-b39e-1296ec6ae2c0.png)
 
