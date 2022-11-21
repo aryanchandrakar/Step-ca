@@ -56,7 +56,7 @@ keycloak.internal [IP address of keycloak-server-ubuntu22].
 
 Look at lines 5 and 6 in the image below for reference. [Do not copy the IP address shown in the image.]
 
-![host](https://user-images.githubusercontent.com/49098125/202941896-9349e0d8-daea-477e-b1d0-3ed3c9ce2fdf.png)"
+<img width="500" alt="picture6-928536533" src="https://user-images.githubusercontent.com/49098125/202944327-f9995082-bc68-4b44-b112-4fc02148eb3b.png">
 
 8. Repeat steps 4 to 7 on **step-ca-server-ubuntu22 and server-ubuntu ** VMs as well. 
 
@@ -67,6 +67,7 @@ Now run grading_script1.py on **step-ca-server-ubuntu22**, **client-ubuntu22** a
 - Open a terminal.
 - run the following command from /home/student.  
 `python3 grading_scripts/grading_script1.py`
+
 *Do not execute the grading scripts with sudo*
 
 
@@ -123,6 +124,7 @@ At the end of this step, your output should look something like this –
 We are know done with setting up our step-ca server. 
 Run grading script 1 using the following command:  
 `python3 /home/student/grading_scripts/grading_script2.py`  
+
 *Do not execute the grading scripts with sudo*
     
     
@@ -159,6 +161,7 @@ A python server will be started at port 12345 and can be now accessed by any sys
 Now open a new terminal on Step-ca server and run the grading script.
 - run the following command from /home/student.  
 `python3 grading_scripts/grading_script3.py`
+
 *Do not execute the grading scripts with sudo*
  
 
@@ -208,6 +211,7 @@ Run the command `sudo adduser --quiet --disabled-password --gecos ' ' [username]
 Now open a new terminal on Step-ca server and run the grading script.
 - run the following command from /home/student.  
 `python3 grading_scripts/grading_script4.py`
+
 *Do not execute the grading scripts with sudo*
 
   
@@ -231,6 +235,7 @@ Now using the created host lets login into the resource server system using secu
 Now open a new terminal on Step-ca server and run the grading script.
 - run the following command from /home/student.  
 `python3 grading_scripts/grading_script5.py`
+
 *Do not execute the grading scripts with sudo*
   
 ## Conclusion
