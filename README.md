@@ -5,8 +5,6 @@ _Team **WeARENotGoodAtThis** : [Kirtan Patel](kirtandp@andrew.cmu.edu), [Aryan C
 ## Introduction
 In this lab, students will learn to secure web application by generating TLS certificates, once the certificates are generated students will learn about automating the renewal process, creating short lived certificates and issue customized certificates.
 
-# Network Diagram here
-
 ### Step-Ca
 [Step-ca](https://smallstep.com/docs/step-ca#introduction-to-step-ca) is an online Certificate Authority (CA) for secure, automated X.509 and SSH certificate management. It's secured with TLS and offers several configurable certificate provisioners, flexible certificate templating, and pluggable database backends to suit a wide variety of contexts and workflows. It employs sane default algorithms and attributes, so you don't have to be a security engineer to use it securely.
 
@@ -38,7 +36,7 @@ Access to the empolyee was provided by the admin by sharing the key via a file. 
 
 ### Network Diagram
 
-![image](https://user-images.githubusercontent.com/49098125/202931351-190bfb53-92f5-4374-a173-debef5779392.png)
+![image](https://user-images.githubusercontent.com/49098125/202934732-dbd0e47b-63d2-4dd3-a1b7-b72f6ee8f41c.png)
 
 ## Setting up Step-ca server
 ### Initialize certificate authority
