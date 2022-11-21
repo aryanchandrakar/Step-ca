@@ -36,7 +36,7 @@ Access to the empolyee was provided by the admin by sharing the key via a file. 
 
 ### Network Diagram
 
-![image](https://user-images.githubusercontent.com/49098125/202936858-020c34ec-4f46-4e52-8fd3-c173d2f594d3.png)
+![image](https://user-images.githubusercontent.com/49098125/202952289-c8fca90e-f670-46ff-b72d-2d1964ee1ea2.png)
 
 ## Procedure
 ### Enabling hostname to IP address resolution
