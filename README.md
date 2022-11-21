@@ -38,7 +38,8 @@ Access to the empolyee was provided by the admin by sharing the key via a file. 
 
 ![image](https://user-images.githubusercontent.com/49098125/202934732-dbd0e47b-63d2-4dd3-a1b7-b72f6ee8f41c.png)
 
-## Setting up Step-ca server
+## Procedure
+### Setting up Step-ca server
 ### Initialize certificate authority
 The certificate authority is what you’ll be using to issue and sign certificates, knowing that you can trust anything using a certificate signed by the root certificate.
 
