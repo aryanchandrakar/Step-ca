@@ -27,12 +27,12 @@ Currently,  the status quo method for setting up secure ssh connections is by im
 Access to the empolyee was provided by the admin by sharing the key via a file. The employee was recently fired, he access the server messes up with it. You have taken it upon yourself to secure the same, using step-ca, Let's go with it!
 
 ## Machines
-| Name            | Operating System | IP Address | Credentials     |
-| --------------- |:----------------:| :---------:| ---------------:|
-| Step-CA Server  | Ubunutu          | 10.5.5.143 | Student/tartans |
-| KeyCloak Server | Ubunutu          | 10.9.8.31  | Student/tartans |
-| Client          | Ubunutu          | 10.5.5.119 | Student/tartans |
-| Server          | Ubunutu          | 10.9.2.252 | Student/tartans |
+| Name            | Operating System | Credentials     |
+| --------------- |:----------------:| :--------------:|
+| Step-CA Server  | Ubunutu          | Student/tartans |
+| KeyCloak Server | Ubunutu          | Student/tartans |
+| Client          | Ubunutu          | Student/tartans |
+| Resource Server | Ubunutu          | Student/tartans |
 
 ### Network Diagram
 
